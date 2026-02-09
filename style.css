@@ -75,6 +75,12 @@ body, html {
     opacity: 0.25; /* Transparent and in background */
     z-index: 2;
     pointer-events: none;
+    animation: fadeInLogo 2s ease-in-out forwards;
+}
+
+@keyframes fadeInLogo {
+    0% { opacity: 0; transform: translate(-50%, -70%);}
+    100% { opacity: 0.25; transform: translate(-50%, -50%);}
 }
 
 /* Text Content */
@@ -82,6 +88,13 @@ body, html {
     position: relative;
     z-index: 5;
     text-align: center;
+    transform: translateY(-250%); /* Start above */
+    animation: slideDown 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes slideDown {
+    0% { transform: translateY(-250%); }
+    100% { transform: translateY(0); }
 }
 
 .archive-title {
@@ -193,6 +206,24 @@ main::before {
     padding: 40px;
     margin-bottom: 40px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+    border-radius: 15px;
+    transition: width 0.5s cubic-bezier(0.4, 0.0, 0.2, 1), 
+                height 0.5s cubic-bezier(0.4, 0.0, 0.2, 1), 
+                padding 0.5s ease;
+    width: auto;
+    overflow: hidden; /* Important for smooth resizing visuals */
+}
+
+/* Animation States */
+.warning-box {
+    /* Merged with main definition to avoid overriding issues if possible, 
+       but keeping this block if it has unique properties. 
+       Actually, let's just make sure the transition matches. */
+    min-height: 100px; /* Prevent collapse during transitions if needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .warning-box p {
@@ -212,6 +243,11 @@ main::before {
     margin-top: 30px;
     margin-bottom: 0 !important;
     text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+@keyframes pulseRed {
+    0% { opacity: 1; text-shadow: 0 0 25px rgba(255, 0, 0, 1); color: #ff0000; }
+    100% { opacity: 1; text-shadow: 0 0 10px rgba(255, 0, 0, 0.5); color: #ffffff; }
 }
 
 /* Verify Button */
@@ -234,5 +270,60 @@ main::before {
     background: white;
     color: black;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+
+/* Animation States */
+.warning-box {
+    transition: all 0.5s ease-in-out;
+    min-height: 100px; /* Prevent collapse during transitions if needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.warning-green {
+    color: #4CAF50; /* Green */
+    font-family: 'HelveticaNeueMedium', sans-serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+.fractal-gif {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #333;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.pulse-anim {
+    display: inline-block;
+    animation: pulseRed 0.8s ease-in-out infinite;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
+/* Reset box sizing for better height calculation */
+.warning-box, .warning-box * {
+    box-sizing: border-box;
+}
+
+/* Ensure Width Transition Works */
+.warning-box {
+    max-width: 800px; /* Constraint */
+    /* width will be controlled by JS for animation */
 }
 
