@@ -44,7 +44,7 @@ body, html {
     position: absolute;
     top: 0;
     left: 0;
-    width: 120%; /* wider to allow movement without gaps */
+    width: 100%;
     height: 100%;
     background: repeating-linear-gradient(
         45deg,
@@ -53,8 +53,9 @@ body, html {
         #e0e0e0 20px,
         #e0e0e0 40px
     );
-    transform: translateX(var(--stripe-offset));
-    transition: transform 0.1s linear;
+    background-position: var(--stripe-offset) 0;
+    will-change: background-position;
+    /* Removed transition for smooth JS control */
     z-index: 1;
 }
 
@@ -66,11 +67,11 @@ body, html {
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background-image: url('assets/achrivelogo.png');
+    background-image: url('assets/archivelogo.png');
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    opacity: 0.1; /* Transparent and in background */
+    opacity: 0.25; /* Transparent and in background */
     z-index: 2;
     pointer-events: none;
 }
@@ -78,7 +79,7 @@ body, html {
 /* Text Content */
 .header-content {
     position: relative;
-    z-index: 3;
+    z-index: 5;
     text-align: center;
 }
 
@@ -121,7 +122,7 @@ body, html {
     left: 0;
     width: 100%;
     height: 5px; /* Border thickness */
-    background: linear-gradient(90deg, black, grey, black);
+    background: linear-gradient(90deg, black, rgb(27, 28, 29), black);
     background-size: 200% 100%;
     animation: borderCycle 3s linear infinite;
     z-index: 5;
@@ -147,53 +148,24 @@ main {
 main::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     
-    /* Checkerboard Pattern using gradients */
-    background-color: #0d0d0d; /* Base dark color */
+    /* X Pattern ("Stitches") */
+    background-color: #000000;
     background-image: 
-        linear-gradient(45deg, #222 25%, transparent 25%, transparent 75%, #222 75%, #222),
-        linear-gradient(45deg, #222 25%, transparent 25%, transparent 75%, #222 75%, #222);
+        linear-gradient(45deg, transparent 48%, #080808 48%, #080808 52%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, #080808 48%, #080808 52%, transparent 52%);
     
-    /* Size of the checks */
-    background-size: 100px 100px;
+    /* Size of the X pattern */
+    background-size: 20px 20px;
     
-    /* Offset the second gradient to create the check effect */
-    background-position: 0 0, 50px 50px;
-    
-    /* Diagonal Movement Animation */
-    animation: backgroundMove 20s linear infinite;
     z-index: 0;
 }
 
 @keyframes backgroundMove {
-    0% { transform: translate(0, 0); }
-    100% { transform: translate(-100px, 100px); }
-}
-
-/* --- Verify Button --- */
-.verify-btn {
-    position: relative;
-    z-index: 10;
-    padding: 15px 40px;
-    font-family: 'HelveticaNeueMedium', sans-serif;
-    font-size: 1.2rem;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid #fff;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-}
-
-.verify-btn:hover {
-    background: #fff;
-    color: #000;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    0% { background-position: 0 0, 50px 50px; }
+    100% { background-position: -100px 100px, -50px 150px; }
 }
