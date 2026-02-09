@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
         currentOffset += speed; // Moving Right -> Increase X
         
         // Loop the pattern
-        // Pattern matches geometric period approx 56.568... (40px / sin(45))
-        const period = 56.568542495;
+        // Pattern matches geometric period approx 56.57 (matched to CSS background-size)
+        const period = 56.57;
         const transformValue = (currentOffset % period);
         
         // Apply to CSS variable

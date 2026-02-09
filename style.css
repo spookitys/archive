@@ -53,6 +53,7 @@ body, html {
         #e0e0e0 20px,
         #e0e0e0 40px
     );
+    background-size: 56.57px 56.57px;
     background-position: var(--stripe-offset) 0;
     will-change: background-position;
     /* Removed transition for smooth JS control */
@@ -141,7 +142,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* Main Site Background - Checker Pattern */
@@ -169,3 +171,68 @@ main::before {
     0% { background-position: 0 0, 50px 50px; }
     100% { background-position: -100px 100px, -50px 150px; }
 }
+
+/* Content Container */
+.content-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 800px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+/* Warning Box */
+.warning-box {
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid #333;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+}
+
+.warning-box p {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #ccc;
+}
+
+.warning-red {
+    color: #ff0000;
+    font-weight: 900;
+    font-size: 1.2rem;
+    font-family: 'HelveticaNeueBlack', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 30px;
+    margin-bottom: 0 !important;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+/* Verify Button */
+.verify-btn {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 15px 50px;
+    font-family: 'HelveticaNeueBlack', sans-serif;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    overflow: hidden;
+}
+
+.verify-btn:hover {
+    background: white;
+    color: black;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
