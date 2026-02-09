@@ -22,7 +22,7 @@ body, html {
     padding: 0;
     height: 100%;
     width: 100%;
-    overflow: hidden;
+    overflow: auto;
     font-family: 'HelveticaNeueMedium', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: #111;
 }
@@ -150,13 +150,14 @@ body, html {
 /* --- Main Site Background --- */
 main {
     position: relative;
-    height: calc(100vh - var(--header-height));
+    min-height: calc(100vh - var(--header-height));
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-y: auto;
-    overflow-x: hidden;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    box-sizing: border-box;
 }
 
 /* Main Site Background - Checker Pattern */
@@ -171,8 +172,8 @@ main::before {
     /* X Pattern ("Stitches") */
     background-color: #000000;
     background-image: 
-        linear-gradient(45deg, transparent 48%, #080808 48%, #080808 52%, transparent 52%),
-        linear-gradient(-45deg, transparent 48%, #080808 48%, #080808 52%, transparent 52%);
+        linear-gradient(45deg, transparent 48%, #0c0c0c 48%, #0c0c0c 52%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, #0c0c0c 48%, #0c0c0c 52%, transparent 52%);
     
     /* Size of the X pattern */
     background-size: 20px 20px;
@@ -212,6 +213,7 @@ main::before {
                 padding 0.5s ease;
     width: auto;
     overflow: hidden; /* Important for smooth resizing visuals */
+    text-align: left;
 }
 
 /* Animation States */
@@ -233,7 +235,7 @@ main::before {
     color: #ccc;
 }
 
-.warning-red {
+.warning-box .warning-red {
     color: #ff0000;
     font-weight: 900;
     font-size: 1.2rem;
@@ -242,7 +244,7 @@ main::before {
     letter-spacing: 2px;
     margin-top: 30px;
     margin-bottom: 0 !important;
-    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    text-shadow: 0 0 10px rgb(255, 0, 0);
 }
 
 @keyframes pulseRed {
@@ -325,5 +327,252 @@ main::before {
 .warning-box {
     max-width: 800px; /* Constraint */
     /* width will be controlled by JS for animation */
+}
+
+/* --- Home Page Layout --- */
+.home-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    height: 80vh; 
+    z-index: 2; /* Sit above background */
+}
+
+/* Sidebar */
+.sidebar-box {
+    width: 250px;
+    background: linear-gradient(to bottom, #000000, #333333);
+    border: 2px solid white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.sidebar-btn {
+    color: #fff;
+    background: none;
+    border: none;
+    text-align: left;
+    font-family: 'HelveticaNeueMedium', sans-serif;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.main-page-btn {
+    border: 2px solid white;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.main-page-btn:hover {
+    background: white;
+    color: black;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.sidebar-btn.selected {
+    font-weight: 900;
+}
+
+.divisions-container {
+    margin-top: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+    /* Custom scrollbar for webkit */
+    scrollbar-width: thin;
+    scrollbar-color: #888 #000;
+}
+
+/* Scrollbar styling */
+.divisions-container::-webkit-scrollbar {
+    width: 6px;
+}
+.divisions-container::-webkit-scrollbar-track {
+    background: #000; 
+}
+.divisions-container::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 3px;
+}
+
+
+.divisions-title {
+    font-family: 'HelveticaNeueMedium', sans-serif;
+    font-size: 1.2rem;
+    color: #fff;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+.division-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.division-btn {
+    color: #ccc;
+    background: none;
+    border: none;
+    text-align: left;
+    font-family: 'HelveticaNeueMedium', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 5px 0;
+    position: relative;
+    width: 100%;
+    transition: color 0.2s;
+}
+
+.division-btn:hover {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Hover Indicator */
+.division-btn::before {
+    content: '> ';
+    display: inline-block;
+    width: 0;
+    opacity: 0;
+    transition: all 0.2s ease;
+    margin-right: 0;
+}
+
+.division-btn:hover::before {
+    width: 15px;
+    opacity: 1;
+    margin-right: 5px;
+}
+
+/* Tooltip (JS Controlled) */
+#cursor-tooltip {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.95);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    max-width: 250px;
+    font-size: 0.9rem;
+    pointer-events: none;
+    z-index: 1000;
+    line-height: 1.4;
+    border: 1px solid #444;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: opacity 0.1s;
+    font-family: 'HelveticaNeueMedium', sans-serif;
+}
+
+/* Dashboard Area */
+.dashboard-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dashboard-card {
+    background: linear-gradient(to bottom, #000000, #333333);
+    border: 2px solid white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'HelveticaNeueMedium', sans-serif;
+    color: #fff;
+    text-align: left;
+    transition: transform 0.1s;
+    overflow: hidden;
+}
+
+.guide-card {
+    width: 100%;
+    height: 150px; 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    font-size: 1.8rem;
+}
+
+.header-icon {
+    height: 100px;
+    width: auto;
+    opacity: 0.8;
+}
+
+.guide-card:hover, .action-card:hover { 
+    transform: scale(1.005);
+    /* Keep dark background on hover but maybe lighten slightly or add glow */
+    background: linear-gradient(to bottom, #111111, #444444);
+}
+
+.dashboard-split {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+.announcements-card {
+    /* Not a button */
+    background: linear-gradient(to bottom, #000000, #333333);
+    border: 2px solid white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 350px; 
+    flex-shrink: 0;
+    overflow: hidden;
+    cursor: default;
+}
+
+.announcements-header {
+    background: linear-gradient(to bottom, #ffffff, #cccccc);
+    color: #000;
+    padding: 25px;
+    font-size: 1.4rem;
+    font-family: 'HelveticaNeueMedium', sans-serif;
+    line-height: 1.2;
+    border-bottom: 2px solid white;
+}
+
+.announcements-content {
+    flex-grow: 1;
+    background: transparent; /* Inherits form card gradient */
+    padding: 20px;
+    color: #fff;
+}
+
+.dashboard-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+.action-card {
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-start; 
+    padding: 30px;
+    font-size: 1.5rem;
+    line-height: 1.2;
 }
 

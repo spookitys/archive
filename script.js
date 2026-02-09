@@ -182,11 +182,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function playFractalSequence() {
         // 2. Fractal Gif
-        updateBoxContent('<img src="assets/fractal.gif" class="fractal-gif fade-in" alt="Sequence">');
+        const img = new Image();
+        img.className = "fractal-gif fade-in";
+        img.alt = "Sequence";
         
-        setTimeout(() => {
-            playDotsSequence();
-        }, 3000); 
+        img.onload = () => {
+            // Only update content once dimensions are known (loaded)
+            updateBoxContent(img.outerHTML);
+            
+            setTimeout(() => {
+                playDotsSequence();
+            }, 3000); 
+        };
+        
+        img.src = "assets/fractal.gif";
     }
 
     function playDotsSequence() {
@@ -198,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let dots = 1;
         const maxDots = 3;
         const startTime = Date.now();
-        const duration = 2000; 
+        const duration = 4851; 
 
         const dotInterval = setInterval(() => {
             if (Date.now() - startTime > duration) {
@@ -217,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const verifyBtn = document.querySelector('.verify-btn');
         updateBoxContent(`
             <p class="warning-green fade-in">
-                Lifeform detected, press the verify button again to proceed.
+                Lifeform detected, press the countinue button to proceed.
             </p>
         `);
 
@@ -228,5 +237,37 @@ document.addEventListener('DOMContentLoaded', () => {
         verifyBtn.style.pointerEvents = 'auto';
         verifyBtn.style.cursor = 'pointer';
         verifyBtn.classList.add('ready-to-proceed');
+    }
+
+    // --- Home Page Tooltip Logic ---
+    const tooltip = document.getElementById('cursor-tooltip');
+    
+    // Only run if the tooltip element exists (i.e. we are on home.html)
+    if (tooltip) {
+        document.querySelectorAll('[data-tooltip]').forEach(element => {
+            element.addEventListener('mousemove', (e) => {
+                tooltip.textContent = element.getAttribute('data-tooltip');
+                tooltip.style.opacity = '1';
+                
+                // Calculate position to keep it on screen
+                let x = e.clientX + 15;
+                let y = e.clientY + 15;
+                
+                // Adjust if going off screen (basic check)
+                if (x + 250 > window.innerWidth) {
+                    x = e.clientX - 265; // shift left
+                }
+                if (y + 100 > window.innerHeight) {
+                    y = e.clientY - 100; // shift up
+                }
+
+                tooltip.style.left = `${x}px`;
+                tooltip.style.top = `${y}px`;
+            });
+
+            element.addEventListener('mouseleave', () => {
+                tooltip.style.opacity = '0';
+            });
+        });
     }
 });

@@ -19,8 +19,51 @@
         <div class="header-border"></div>
     </header>
     <main>
-        <!-- Content will be added later -->
+        <div class="home-grid">
+            <aside class="sidebar-box">
+                <button class="sidebar-btn main-page-btn">Main Page</button>
+                <div class="divisions-container">
+                    <h3 class="divisions-title">Divisions</h3>
+                    <div class="division-list">
+                        <button class="division-btn" data-tooltip="Reserved for studying, documenting, and archiving anomalous behaviour and entites.">Records Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for locating, detaining, and transporting anomalies to facilities.">Containment Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for designing, constructing, and enacting protocols to contain anomalies.">Retainment Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for inventing gadgets, items, and esoterica with anamolous properties used by the organization.">Creation Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for dismantling and destroying anomalies deemed unfit for rehabilitation or containment.">Destruction Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for disputing internal affairs, as well as dismantling mole operations.">Internal Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for disputing external affairs with other organizations.">External Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for disputing ethical dillemas and disputes, works in tandem with all other divisions.">Ethics Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for allocating, managing, and distributing funds and resources among other divisions.">Logistics Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for suppressing, distorting, or redirecting public knowledge about anomalies or the organization.">Obfuscation Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for designing, engineering, and constructing organization facilities and operation bases">Construction Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for recruiting personnel and overseeing other divisions.">Administrative Division</button>
+                    </div>
+                </div>
+            </aside>
+    
+            <div class="dashboard-area">
+                <button class="dashboard-card guide-card">
+                    Guide for newly recruited personnel
+                    <img src="assets/archivelogo.png" class="header-icon" alt="Logo">
+                </button>
+                
+                <div class="dashboard-split">
+                    <div class="announcements-card">
+                        <div class="announcements-header">
+                            Organization<br>Announcements
+                        </div>
+                        <div class="announcements-content"></div>
+                    </div>
+                    
+                    <div class="dashboard-column">
+                        <button class="dashboard-card action-card">Latest<br>Documents</button>
+                        <button class="dashboard-card action-card">Universe<br>Handbook</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <script src="script.js"></script>
+    <div id="cursor-tooltip"></div>
 </body>
 </html>
