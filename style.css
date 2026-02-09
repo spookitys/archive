@@ -1,0 +1,199 @@
+:root {
+    --header-height: 200px; /* Adjust as needed */
+    --stripe-offset: 0px;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueBlack';
+    src: url('assets/archivefont1/HelveticaNeueBlack.otf') format('opentype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HelveticaNeueMedium';
+    src: url('assets/archivefont1/HelveticaNeueMedium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-family: 'HelveticaNeueMedium', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #111;
+}
+
+/* --- Header Styling --- */
+.site-header {
+    position: relative;
+    height: var(--header-height);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+}
+
+/* Interactive Stripes Background */
+.header-bg-stripes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120%; /* wider to allow movement without gaps */
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        #ffffff,
+        #ffffff 20px,
+        #e0e0e0 20px,
+        #e0e0e0 40px
+    );
+    transform: translateX(var(--stripe-offset));
+    transition: transform 0.1s linear;
+    z-index: 1;
+}
+
+/* Logo Background */
+.header-logo-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/achrivelogo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.1; /* Transparent and in background */
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Text Content */
+.header-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+}
+
+.archive-title {
+    font-family: 'HelveticaNeueBlack', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 900;
+    color: white;
+    font-size: 4rem;
+    margin: 0;
+    letter-spacing: 0.1em;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+}
+
+.archive-subheader {
+    font-family: 'HelveticaNeueMedium', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    color: white;
+    font-size: 1.5rem;
+    margin: 10px 0 0 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Gradient Overlay: Transparent top -> Solid Black bottom */
+.header-gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 0%, black 100%);
+    z-index: 4;
+    pointer-events: none;
+}
+
+/* Gradient Border: Left to Right, Black to Grey Cycle */
+.header-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px; /* Border thickness */
+    background: linear-gradient(90deg, black, grey, black);
+    background-size: 200% 100%;
+    animation: borderCycle 3s linear infinite;
+    z-index: 5;
+}
+
+@keyframes borderCycle {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+}
+
+/* --- Main Site Background --- */
+main {
+    position: relative;
+    height: calc(100vh - var(--header-height));
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Main Site Background - Checker Pattern */
+main::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    
+    /* Checkerboard Pattern using gradients */
+    background-color: #0d0d0d; /* Base dark color */
+    background-image: 
+        linear-gradient(45deg, #222 25%, transparent 25%, transparent 75%, #222 75%, #222),
+        linear-gradient(45deg, #222 25%, transparent 25%, transparent 75%, #222 75%, #222);
+    
+    /* Size of the checks */
+    background-size: 100px 100px;
+    
+    /* Offset the second gradient to create the check effect */
+    background-position: 0 0, 50px 50px;
+    
+    /* Diagonal Movement Animation */
+    animation: backgroundMove 20s linear infinite;
+    z-index: 0;
+}
+
+@keyframes backgroundMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-100px, 100px); }
+}
+
+/* --- Verify Button --- */
+.verify-btn {
+    position: relative;
+    z-index: 10;
+    padding: 15px 40px;
+    font-family: 'HelveticaNeueMedium', sans-serif;
+    font-size: 1.2rem;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.verify-btn:hover {
+    background: #fff;
+    color: #000;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
