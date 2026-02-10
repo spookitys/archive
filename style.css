@@ -336,7 +336,8 @@ main::before {
     gap: 20px;
     width: 100%;
     max-width: 1200px;
-    height: 80vh; 
+    min-height: 80vh;
+    height: auto;
     z-index: 2; /* Sit above background */
 }
 
@@ -352,6 +353,11 @@ main::before {
     flex-direction: column;
     color: #fff;
     flex-shrink: 0;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
 }
 
 .sidebar-btn {
@@ -389,10 +395,22 @@ main::before {
 .divisions-container {
     margin-top: 0;
     flex-grow: 1;
-    overflow-y: auto;
+    overflow-y: visible;
     /* Custom scrollbar for webkit */
     scrollbar-width: thin;
     scrollbar-color: #888 #000;
+}
+
+/* Scrollbar styling for sidebar when it has overflow */
+.sidebar-box::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar-box::-webkit-scrollbar-track {
+    background: #000; 
+}
+.sidebar-box::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 3px;
 }
 
 /* Scrollbar styling */
@@ -567,6 +585,60 @@ main::before {
     flex-grow: 1;
 }
 
+/* --- Guide Page Layout --- */
+.guide-page-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.guide-page-title {
+    font-family: 'HelveticaNeueMedium', sans-serif;
+    font-size: 2rem;
+    color: #fff;
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #fff;
+}
+
+.guide-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.guide-section {
+    width: 100%;
+    background: linear-gradient(to bottom, #000000, #333333);
+    border: 2px solid white;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    padding: 25px 30px;
+    box-sizing: border-box;
+    color: #fff;
+    font-family: 'HelveticaNeueMedium', sans-serif;
+}
+
+.guide-section h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 8px;
+}
+
+.guide-section p {
+    margin: 0 0 12px 0;
+    line-height: 1.6;
+    color: #ccc;
+}
+
+.guide-section p:last-child {
+    margin-bottom: 0;
+}
+
 .action-card {
     flex-grow: 1;
     display: flex;
@@ -661,8 +733,16 @@ main::before {
 .announcement-folder {
     margin-bottom: 15px;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
     font-family: 'HelveticaNeueMedium', sans-serif;
+}
+.announcement-folder:hover .folder-body {
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+}
+
+.announcement-folder:hover {
+    transform: translateY(-2px);
 }
 /* ... existing hover ... */
 
@@ -763,8 +843,8 @@ main::before {
 
 #modal-title {
     margin-top: 0;
-    border-bottom: 1px solid #444;
-    padding-bottom: 15px;
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
 #modal-text {
