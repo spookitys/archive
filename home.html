@@ -44,7 +44,7 @@
             <div class="dashboard-area">
                 <button class="dashboard-card guide-card">
                     Guide for newly recruited personnel
-                    <img src="assets/archivelogo.png" class="header-icon" alt="Logo">
+                    <img src="assets/whitearchivelogo.png" class="header-icon" alt="Logo">
                 </button>
                 
                 <div class="dashboard-split">
@@ -52,17 +52,54 @@
                         <div class="announcements-header">
                             Organization<br>Announcements
                         </div>
-                        <div class="announcements-content"></div>
+                        <div class="announcements-content">
+                            <!-- Announcement Items -->
+                            <div class="announcement-folder" data-division="Board of Dominion" data-header="Class 5 Containment Decree" data-text="The Board of Dominion has issued a new decree regarding the containment procedures of Class-5 anomalies. All personnel are required to review the updated guidelines immediately. Failure to comply will result in disciplinary action.">
+                                <div class="folder-tab">Board of Dominion</div>
+                                <div class="folder-body">Class 5 Containment Decree</div>
+                            </div>
+                            <div class="announcement-folder" data-division="Obfuscation Division" data-header="Anomaly #1891 Leaked" data-text="Recent leak detected in Sector 4. The Obfuscation Division has deployed protocols to neutralize the information spread. Social media monitoring teams are on high alert.">
+                                <div class="folder-tab">Obfuscation Division</div>
+                                <div class="folder-body">Anomaly #1891 Leaked</div>
+                            </div>
+                            <div class="announcement-folder" data-division="Constructive Division" data-header="Site 19 Wing Construction" data-text="Construction of the new containment wing in Site-19 is ahead of schedule. However, noise levels will be elevated during the next 48 hours. Ear protection is available at the logistics office.">
+                                <div class="folder-tab">Constructive Division</div>
+                                <div class="folder-body">Site 19 Wing Construction</div>
+                            </div>
+                            <div class="announcement-folder" data-division="Board of Dominion" data-header="Head Divisionaries Meeting" data-text="Reminder: The annual performance review for all Division Heads will commence next week. Prepare your reports and department summaries.">
+                                <div class="folder-tab">Board of Dominion</div>
+                                <div class="folder-body">Head Divisionaries Meeting</div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="dashboard-column">
-                        <button class="dashboard-card action-card">Latest<br>Documents</button>
-                        <button class="dashboard-card action-card">Universe<br>Handbook</button>
+                        <button class="dashboard-card action-card">
+                            <span class="action-text">Latest<br>Documents</span>
+                            <img src="assets/latestdocs.png" class="action-icon" alt="Latest Docs">
+                            <div class="card-tooltip">A page for all the latest docuements that have been unclassified or updated by the Board of Dominion.</div>
+                        </button>
+                        <button class="dashboard-card action-card">
+                            <span class="action-text">Universe<br>Handbook</span>
+                            <img src="assets/universelogo.png" class="action-icon" alt="Universe Handbook">
+                            <div class="card-tooltip">A page dedicated to instruct new personnel of the esoteric nature of the universe and beyond.</div>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- Announcement Modal -->
+    <div id="announcement-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn">&times;</button>
+            <h2 id="modal-title">Announcement Title</h2>
+            <h3 id="modal-subheader">Division Name</h3>
+            <p id="modal-text">Announcement text goes here.</p>
+        </div>
+    </div>
+
     <script src="script.js"></script>
     <div id="cursor-tooltip"></div>
 </body>

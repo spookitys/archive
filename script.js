@@ -270,4 +270,45 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // --- Announcement Modal Logic ---
+    const modal = document.getElementById('announcement-modal');
+    if (modal) {
+        const modalTitle = document.getElementById('modal-title');
+        const modalSubheader = document.getElementById('modal-subheader');
+        const modalText = document.getElementById('modal-text');
+        const closeBtn = document.querySelector('.modal-close-btn');
+        const announcementFolders = document.querySelectorAll('.announcement-folder');
+
+        announcementFolders.forEach(folder => {
+            folder.addEventListener('click', () => {
+                // Using dataset for cleaner access
+                const division = folder.getAttribute('data-division');
+                const header = folder.getAttribute('data-header'); // This is the Synopsis
+                const text = folder.getAttribute('data-text');
+                
+                // Requirement: 
+                // Header = Announcements Synopsis (data-header)
+                // Subheader = Division Author (data-division)
+                
+                modalTitle.textContent = header;
+                if (modalSubheader) modalSubheader.textContent = division;
+                modalText.textContent = text;
+                
+                modal.classList.remove('hidden');
+            });
+        });
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    }
 });
