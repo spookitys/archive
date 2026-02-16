@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCHIVE - RECORDS DIVISION</title>
+    <link rel="icon" href="../assets/archivelogo.png" type="image/png">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Specific Styles for Records Division */
+        .records-dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .records-list-section {
+            display: flex;
+            flex-direction: column;
+            border: 2px solid white; /* Match theme borders */
+            background: linear-gradient(to bottom, #000000, #111111); /* Dark background */
+            border-radius: 20px; /* Match theme radius */
+            overflow: hidden;
+            height: 600px; /* Fixed height with scroll */
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .records-filter-bar {
+            display: flex;
+            background-color: transparent;
+            color: #fff;
+            padding: 15px 20px;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+        }
+
+        .records-pagination {
+            display: flex;
+            width: 100%;
+            justify-content: space-between; /* Space them out evenly */
+            align-items: center;
+            font-family: 'HelveticaNeueMedium', sans-serif;
+            font-size: 16px; /* Larger font */
+            padding-bottom: 0; /* Remove padding-bottom since no scrollbar */
+            height: 100%; /* Ensure it fills height if needed, though likely constrained by parent padding */
+        }
+        
+        /* Removed scrollbar styling as it's no longer scrollable */
+
+        .pagination-link {
+            color: #aaa;
+            text-decoration: none;
+            cursor: pointer;
+            white-space: nowrap;
+            padding: 5px 10px; /* Larger padding */
+            border-radius: 4px;
+            transition: all 0.2s;
+            font-size: 15px; /* Larger font (was 13px) */
+        }
+
+        .pagination-link.active {
+            color: #fff;
+            font-weight: bold;
+            text-decoration: underline;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .pagination-link:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* Dropdown Styles */
+        .filter-dropdown-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .filter-dropdown-btn {
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'HelveticaNeueMedium', sans-serif;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .filter-dropdown-btn:hover {
+            background: #444;
+        }
+        
+        .filter-dropdown-btn::after {
+            content: '▼';
+            font-size: 0.8em;
+            margin-left: 5px;
+        }
+
+        .filter-dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #222;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            border: 1px solid #444;
+            border-radius: 4px;
+            z-index: 100;
+            margin-top: 5px;
+            padding: 10px 0;
+        }
+
+        .filter-dropdown-content.show {
+            display: block;
+        }
+
+        .filter-option {
+            padding: 8px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ddd;
+            font-size: 14px;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .filter-option:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .filter-divider {
+            height: 1px;
+            background-color: #444;
+            margin: 5px 0;
+        }
+        
+        /* Custom Checkbox Appearance */
+        .filter-checkbox {
+            width: 16px;
+            height: 16px;
+            border: 1px solid #666;
+            border-radius: 3px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background: #111;
+        }
+        
+        .filter-checkbox.checked::after {
+            content: '✓';
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .records-header-row {
+            display: flex;
+            justify-content: space-between;
+            background-color: rgba(255,255,255,0.05); /* Slightly lighter than bg */
+            color: #fff;
+            padding: 15px 20px;
+            font-family: 'HelveticaNeueMedium', sans-serif;
+            font-size: 18px;
+            border-bottom: 1px solid #333;
+        }
+
+        .records-list {
+            overflow-y: auto;
+            flex-grow: 1;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            /* Scrollbar styling */
+            scrollbar-width: thin;
+            scrollbar-color: #555 #111;
+        }
+        
+        .records-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        .records-list::-webkit-scrollbar-track {
+            background: #111; 
+        }
+        .records-list::-webkit-scrollbar-thumb {
+            background: #555; 
+            border-radius: 4px;
+        }
+
+        .record-item {
+            padding: 12px 20px;
+            color: #ccc;
+            border-bottom: 1px solid #222;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s, padding-left 0.2s;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .record-item:hover {
+            background-color: #2a2a2a;
+            color: #fff;
+            padding-left: 25px; /* Slight movement on hover */
+        }
+        
+        .record-type-tag {
+            font-size: 0.8em;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background: #333;
+            color: #aaa;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-bg-stripes"></div>
+        <div class="header-logo-bg"></div>
+        <div class="header-content">
+            <h1 class="archive-title">ARCHIVE</h1>
+            <h2 class="archive-subheader">For all, for none.</h2>
+        </div>
+        <div class="header-gradient-overlay"></div>
+        <div class="header-border"></div>
+    </header>
+    <main>
+        <div class="home-grid">
+            <aside class="sidebar-box">
+                <button class="sidebar-btn main-page-btn" onclick="window.location.href='../home.html'">Main Page</button>
+                <div class="divisions-container">
+                    <h3 class="divisions-title">Divisions</h3>
+                    <div class="division-list">
+                        <button class="division-btn" data-tooltip="Reserved for studying, documenting, and archiving anomalous behaviour and entites." onclick="window.location.href='recordsHome.html'">Records Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for locating, detaining, and transporting anomalies to facilities." onclick="window.location.href='containmentHome.html'">Containment Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for designing, constructing, and enacting protocols to contain anomalies." onclick="window.location.href='retainmentHome.html'">Retainment Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for inventing gadgets, items, and esoterica with anamolous properties used by the organization." onclick="window.location.href='creationHome.html'">Creation Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for dismantling and destroying anomalies deemed unfit for rehabilitation or containment." onclick="window.location.href='destructionHome.html'">Destruction Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for disputing internal affairs, as well as dismantling mole operations." onclick="window.location.href='internalHome.html'">Internal Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for disputing external affairs with other organizations." onclick="window.location.href='externalHome.html'">External Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for disputing ethical dillemas and disputes, works in tandem with all other divisions." onclick="window.location.href='ethicsHome.html'">Ethics Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for allocating, managing, and distributing funds and resources among other divisions." onclick="window.location.href='logisticsHome.html'">Logistics Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for suppressing, distorting, or redirecting public knowledge about anomalies or the organization." onclick="window.location.href='obfuscationHome.html'">Obfuscation Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for designing, engineering, and constructing organization facilities and operation bases" onclick="window.location.href='constructionHome.html'">Construction Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for recruiting personnel and overseeing other divisions." onclick="window.location.href='administrativeHome.html'">Administrative Division</button>
+                    </div>
+                </div>
+            </aside>
+    
+            <div class="dashboard-area records-dashboard">
+                <button class="dashboard-card guide-card">
+                    Records Division Synopsis
+                    <img src="../assets/whitearchivelogo.png" class="header-icon" alt="Logo">
+                </button>
+                
+                <div class="records-list-section">
+                    <div class="records-filter-bar">
+                        <div class="records-pagination" id="pagination-tabs">
+                            <!-- JS will populate -->
+                        </div>
+                    </div>
+                    
+                    <div class="records-header-row">
+                        <span>Archived Documents</span>
+                        <div class="filter-dropdown-container">
+                            <button class="filter-dropdown-btn" id="filter-btn">
+                                Filters <span id="active-filters-count"></span>
+                            </button>
+                            <div class="filter-dropdown-content" id="filter-dropdown">
+                                <!-- Filter Released -->
+                                <div class="filter-option" data-filter="released">
+                                    <span class="filter-checkbox" id="chk-released"></span>
+                                    Filter Released
+                                </div>
+                                <div class="filter-divider"></div>
+                                <!-- Category Filters -->
+                                <div class="filter-option" data-filter="person">
+                                    <span class="filter-checkbox" id="chk-person"></span>
+                                    Filter Persons
+                                </div>
+                                <div class="filter-option" data-filter="phenomena">
+                                    <span class="filter-checkbox" id="chk-phenomena"></span>
+                                    Filter Phenomena
+                                </div>
+                                <div class="filter-option" data-filter="place">
+                                    <span class="filter-checkbox" id="chk-place"></span>
+                                    Filter Places
+                                </div>
+                                <div class="filter-option" data-filter="entity">
+                                    <span class="filter-checkbox" id="chk-entity"></span>
+                                    Filter Entities
+                                </div>
+                                <div class="filter-option" data-filter="object">
+                                    <span class="filter-checkbox" id="chk-object"></span>
+                                    Filter Objects
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="records-list" id="documents-list">
+                        <!-- Filled by JS -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- State ---
+        const totalDocs = 1000;
+        let currentTab = '1-99'; // Default tab
+        let filters = {
+            released: false,
+            person: false,
+            phenomena: false,
+            place: false,
+            entity: false,
+            object: false
+        };
+
+        // --- Document Registry ---
+        // Add new documents here to automatically link them in the table.
+        // ID: The document number (e.g. 1 for 0001)
+        // Title: The name of the document
+        // Type: 'Person', 'Phenomena', 'Place', 'Entity', 'Object' (Must match filters)
+        // Link: Relative path to the HTML file
+        const documentRegistry = [
+            {
+                id: 1,
+                title: "The Rejected Spawn",
+                type: "Place",
+                link: "../documents/rejectSpawn.html"
+            }
+            // { id: 2, title: "Next Doc", type: "Entity", link: "../documents/nextDoc.html" }
+        ];
+
+        // --- Mock Data Generation ---
+        // Generates the full list of 1000 documents, using registry data where available
+        // and redacted placeholders for the rest.
+        const recordTypes = ['Person', 'Phenomena', 'Place', 'Entity', 'Object'];
+        const allRecords = [];
+
+        for (let i = 1; i <= totalDocs; i++) {
+            // Check if this ID exists in our registry
+            const registeredDoc = documentRegistry.find(doc => doc.id === i);
+
+            if (registeredDoc) {
+                // If found, add the real document
+                allRecords.push({
+                    id: registeredDoc.id,
+                    title: registeredDoc.title,
+                    isRedacted: false,
+                    type: registeredDoc.type,
+                    link: registeredDoc.link
+                });
+            } else {
+                // Otherwise, create a redacted placeholder
+                // "make all documents redacted besides the example one"
+                const type = 'Unknown'; 
+                
+                allRecords.push({
+                    id: i,
+                    title: '[REDACTED]',
+                    isRedacted: true,
+                    type: type,
+                    link: '../miscPages/redactedPage.html'
+                });
+            }
+        }
+
+        // --- DOM Elements ---
+        const listElement = document.getElementById('documents-list');
+        const paginationContainer = document.getElementById('pagination-tabs');
+        const filterBtn = document.getElementById('filter-btn');
+        const filterDropdown = document.getElementById('filter-dropdown');
+        const filterOptions = document.querySelectorAll('.filter-option');
+
+
+        // --- Initialization ---
+        function init() {
+            renderPagination();
+            renderList();
+            setupeventListeners();
+        }
+
+        // --- Rendering ---
+        function renderPagination() {
+            paginationContainer.innerHTML = '';
+            
+            // Define ranges specifically as requested:
+            // "make the tabs logic and display go from 201-300 to 200-299"
+            // Interpreting as: 1-99, 100-199, 200-299, 300-399... 900-999, 1000.
+            const ranges = [
+                { start: 1, end: 99 },
+                { start: 100, end: 199 },
+                { start: 200, end: 299 },
+                { start: 300, end: 399 },
+                { start: 400, end: 499 },
+                { start: 500, end: 599 },
+                { start: 600, end: 699 },
+                { start: 700, end: 799 },
+                { start: 800, end: 899 },
+                { start: 900, end: 999 },
+                { start: 1000, end: 1000 }
+            ];
+
+            ranges.forEach(range => {
+                const rangeLabel = range.start === range.end ? `${range.start}` : `${range.start}-${range.end}`;
+                const tab = document.createElement('span');
+                
+                // Active check
+                const isActive = currentTab === rangeLabel;
+                
+                tab.className = `pagination-link ${isActive ? 'active' : ''}`;
+                tab.textContent = rangeLabel;
+                tab.onclick = () => {
+                    currentTab = rangeLabel;
+                    renderPagination();
+                    renderList();
+                };
+                paginationContainer.appendChild(tab);
+            });
+
+            // Create 'All' tab
+            const allTab = document.createElement('span');
+            allTab.className = `pagination-link ${currentTab === 'All' ? 'active' : ''}`;
+            allTab.textContent = 'All';
+            allTab.onclick = () => {
+                currentTab = 'All';
+                renderPagination();
+                renderList();
+            };
+            paginationContainer.appendChild(allTab);
+        }
+
+        function renderList() {
+            listElement.innerHTML = '';
+
+            // 1. Filter by Tab Logic (Range)
+            let recordsToShow = [];
+            
+            if (currentTab === 'All') {
+                recordsToShow = allRecords;
+            } else {
+                // Handle single number tab "1000"
+                if (currentTab.indexOf('-') === -1) {
+                    const val = parseInt(currentTab);
+                    recordsToShow = allRecords.filter(r => r.id === val);
+                } else {
+                    const [startStr, endStr] = currentTab.split('-');
+                    const start = parseInt(startStr);
+                    const end = parseInt(endStr);
+                    recordsToShow = allRecords.filter(r => r.id >= start && r.id <= end);
+                }
+            }
+
+            // 2. Apply Custom Filters
+            const typeFiltersActive = filters.person || filters.phenomena || filters.place || filters.entity || filters.object;
+            
+            recordsToShow = recordsToShow.filter(record => {
+                // Filter Released Logic:
+                // "change the filter redacted to "Filter Released" and change the logic accordingly"
+                // Assuming "Filter Released" -> Show ONLY Released (non-redacted) items.
+                if (filters.released && record.isRedacted) {
+                    return false;
+                }
+                
+                // Type Filtering
+                if (typeFiltersActive) {
+                     // If type is Unknown (Redacted), filtering by specific type (e.g. Person) should exclude it?
+                     // Usually yes.
+                    const typeKey = record.type.toLowerCase();
+                    if (!filters[typeKey]) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            });
+
+            // Render
+            if (recordsToShow.length === 0) {
+                const li = document.createElement('li');
+                li.className = 'record-item';
+                li.textContent = 'No documents found matching filters.';
+                li.style.textAlign = 'center';
+                li.style.color = '#777';
+                listElement.appendChild(li);
+                return;
+            }
+
+            recordsToShow.forEach(record => {
+                const li = document.createElement('li');
+                li.className = 'record-item';
+                
+                // Clicking sends you to the document page (or redacted page)
+                li.onclick = () => {
+                   if (record.link) {
+                       window.location.href = record.link;
+                   }
+                };
+                
+                const num = record.id.toString().padStart(4, '0');
+                
+                const spanText = document.createElement('span');
+                spanText.textContent = `Document #${num}: ${record.title}`;
+                
+                const spanType = document.createElement('span');
+                spanType.className = 'record-type-tag';
+                // Only show type if known (released)
+                const displayType = record.type === 'Unknown' ? 'REDACTED' : record.type.toUpperCase();
+                spanType.textContent = displayType;
+                
+                li.appendChild(spanText);
+                li.appendChild(spanType);
+                
+                listElement.appendChild(li);
+            });
+        }
+
+        // --- Event Listeners ---
+        function setupeventListeners() {
+            // Dropdown Toggle
+            filterBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                filterDropdown.classList.toggle('show');
+            });
+
+            // Close dropdown when clicking outside
+            window.addEventListener('click', (e) => {
+                if (!filterDropdown.contains(e.target) && e.target !== filterBtn) {
+                    filterDropdown.classList.remove('show');
+                }
+            });
+
+            // Filter Options
+            filterOptions.forEach(option => {
+                option.addEventListener('click', (e) => {
+                    const key = option.getAttribute('data-filter');
+                    filters[key] = !filters[key]; // toggle
+                    
+                    // Update UI Checkbox
+                    const checkbox = option.querySelector('.filter-checkbox');
+                    if (filters[key]) {
+                        checkbox.classList.add('checked');
+                    } else {
+                        checkbox.classList.remove('checked');
+                    }
+
+                    renderList();
+                });
+            });
+        }
+
+        // Run
+        init();
+
+    </script>
+</body>
+</html>

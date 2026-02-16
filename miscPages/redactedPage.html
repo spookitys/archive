@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCHIVE - REDACTED</title>
+    <link rel="icon" href="../assets/archivelogo.png" type="image/png">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .redacted-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 120px); /* Adjust for header height approx */
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative; /* Ensure it stays above background */
+            z-index: 2;
+        }
+        
+        .redacted-message {
+            text-align: center;
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            border-color: #ffffff;
+            box-shadow: 0 0 15px rgba(122, 122, 122, 0.3);
+        }
+
+        .home-btn {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 15px 30px;
+            font-family: 'HelveticaNeueMedium', sans-serif;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            border-radius: 10px;
+        }
+
+        .home-btn:hover {
+            background: white;
+            color: black;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-bg-stripes"></div>
+        <div class="header-logo-bg"></div>
+        <div class="header-content">
+            <h1 class="archive-title">ARCHIVE</h1>
+            <h2 class="archive-subheader">For all, for none.</h2>
+        </div>
+        <div class="header-gradient-overlay"></div>
+        <div class="header-border"></div>
+    </header>
+    <main>
+        <div class="redacted-container">
+            <section class="guide-section redacted-message" style="width: auto; max-width: 800px;">
+                <p>Page Redacted</p>
+                <p>The contents of this document are either missing or have been expunged by order of the Board of Dominion.</p>
+                <p>Further attempts to access this page will be met with disciplinary action.</p>
+            </section>
+            
+            <button class="home-btn" onclick="window.location.href='../home.html'">Back to Main Page</button>
+        </div>
+    </main>
+    <script src="../script.js"></script>
+    <div id="cursor-tooltip"></div>
+</body>
+</html>

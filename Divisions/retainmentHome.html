@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCHIVE - RETAINMENT DIVISION</title>
+    <link rel="icon" href="../assets/archivelogo.png" type="image/png">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .division-dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+        .division-card {
+            background: linear-gradient(to bottom, #000000, #111111);
+            border: 2px solid white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            color: #ccc;
+            min-height: 400px;
+        }
+        .division-header {
+            font-family: 'HelveticaNeueMedium', sans-serif;
+            font-size: 24px;
+            color: white;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-bg-stripes"></div>
+        <div class="header-logo-bg"></div>
+        <div class="header-content">
+            <h1 class="archive-title">ARCHIVE</h1>
+            <h2 class="archive-subheader">For all, for none.</h2>
+        </div>
+        <div class="header-gradient-overlay"></div>
+        <div class="header-border"></div>
+    </header>
+    <main>
+        <div class="home-grid">
+            <aside class="sidebar-box">
+                <button class="sidebar-btn main-page-btn" onclick="window.location.href='../home.html'">Main Page</button>
+                <div class="divisions-container">
+                    <h3 class="divisions-title">Divisions</h3>
+                    <div class="division-list">
+                        <button class="division-btn" data-tooltip="Reserved for studying, documenting, and archiving anomalous behaviour and entites." onclick="window.location.href='recordsHome.html'">Records Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for locating, detaining, and transporting anomalies to facilities." onclick="window.location.href='containmentHome.html'">Containment Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for designing, constructing, and enacting protocols to contain anomalies." onclick="window.location.href='retainmentHome.html'">Retainment Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for inventing gadgets, items, and esoterica with anamolous properties used by the organization." onclick="window.location.href='creationHome.html'">Creation Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for dismantling and destroying anomalies deemed unfit for rehabilitation or containment." onclick="window.location.href='destructionHome.html'">Destruction Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for disputing internal affairs, as well as dismantling mole operations." onclick="window.location.href='internalHome.html'">Internal Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for disputing external affairs with other organizations." onclick="window.location.href='externalHome.html'">External Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for disputing ethical dillemas and disputes, works in tandem with all other divisions." onclick="window.location.href='ethicsHome.html'">Ethics Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for allocating, managing, and distributing funds and resources among other divisions." onclick="window.location.href='logisticsHome.html'">Logistics Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for suppressing, distorting, or redirecting public knowledge about anomalies or the organization." onclick="window.location.href='obfuscationHome.html'">Obfuscation Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for designing, engineering, and constructing organization facilities and operation bases" onclick="window.location.href='constructionHome.html'">Construction Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for recruiting personnel and overseeing other divisions." onclick="window.location.href='administrativeHome.html'">Administrative Division</button>                    </div>
+                </div>
+            </aside>
+    
+            <div class="division-dashboard">
+                <div class="division-card">
+                    <div class="division-header">
+                        Retainment Division
+                    </div>
+                    <p>Welcome to the Retainment Division database access terminal.</p>
+                    <p>Reserved for designing, constructing, and enacting protocols to contain anomalies.</p>
+                    <p><em>Additional classified content is currently unavailable.</em></p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../script.js"></script>
+    <div id="cursor-tooltip"></div>
+</body>
+</html>

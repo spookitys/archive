@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCHIVE - DOCUMENT 0001</title>
+    <link rel="icon" href="../assets/archivelogo.png" type="image/png">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .document-wrapper {
+            display: flex;
+            height: calc(100vh - 200px); /* Adjust based on header height */
+            gap: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+            color: #fff;
+            position: relative;
+            z-index: 10; /* Ensure it is above main::before background */
+            width: 100%;
+        }
+
+        /* Sidebar similar to the sketch */
+        .doc-sidebar {
+            width: 250px;
+            border: 2px solid white;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.8); /* Darker background */
+            flex-shrink: 0;
+            z-index: 11; /* Ensure sidebar is visible */
+        }
+
+        .doc-sidebar-title {
+            font-family: 'HelveticaNeueBlack', sans-serif;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #555;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .doc-main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        .doc-header {
+            font-family: 'HelveticaNeueBlack', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .doc-grid-top {
+            display: flex;
+            gap: 20px;
+            /* Allow height to grow with content */
+            min-height: 300px;
+        }
+
+        .doc-box {
+            border: 2px solid white;
+            border-radius: 20px;
+            padding: 20px;
+            /* Gradient background like other pages */
+            background: linear-gradient(to bottom, #000000, #111111);
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            position: relative;
+            z-index: 12;
+        }
+        
+        .box-title, .box-content, .doc-sidebar-title, p, strong {
+            color: #fff !important; /* Force visibility */
+        }
+
+        /* New Status Styles */
+        .status-table {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .status-row {
+            display: flex;
+            height: 40px; /* Fixed height for rows */
+        }
+
+        .status-label {
+            background-color: #fff;
+            color: #000;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            font-family: 'HelveticaNeueMedium', sans-serif;
+            font-weight: bold;
+            min-width: 120px;
+        }
+
+        .status-value {
+            flex-grow: 1;
+            /* Gradient value box */
+            background: linear-gradient(to right, #333, #000); 
+            color: #fff;
+            padding: 0 15px;
+            display: flex;
+            align-items: center;
+            font-family: 'HelveticaNeueMedium', sans-serif;
+            border-left: 1px solid #111;
+        }
+
+        .status-box {
+            flex: 1;
+        }
+
+        .image-box {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            display: block; /* Ensure it behaves as block */
+            color: white; /* Ensure alt text is visible */
+        }
+
+        .description-box {
+            min-height: 200px;
+        }
+
+        .containment-box {
+            min-height: 150px;
+        }
+
+        .box-title {
+            font-family: 'HelveticaNeueMedium', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #555;
+            padding-bottom: 5px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .box-content {
+            font-family: 'HelveticaNeueMedium', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #ccc;
+        }
+
+        .back-btn {
+            margin-top: auto;
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: white;
+            color: black;
+        }
+
+        /* Scrollbar for content */
+        .doc-main-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        .doc-main-content::-webkit-scrollbar-track {
+            background: #111; 
+        }
+        .doc-main-content::-webkit-scrollbar-thumb {
+            background: #555; 
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-bg-stripes"></div>
+        <div class="header-logo-bg"></div>
+        <div class="header-content">
+            <h1 class="archive-title">ARCHIVE</h1>
+            <h2 class="archive-subheader">For all, for none.</h2>
+        </div>
+        <div class="header-gradient-overlay"></div>
+        <div class="header-border"></div>
+    </header>
+    <main>
+        <div class="home-grid">
+            <aside class="sidebar-box">
+                <button class="sidebar-btn main-page-btn" onclick="window.location.href='../home.html'">Main Page</button>
+                <div class="divisions-container">
+                    <h3 class="divisions-title">Divisions</h3>
+                    <div class="division-list">
+                        <button class="division-btn" data-tooltip="Reserved for studying, documenting, and archiving anomalous behaviour and entites." onclick="window.location.href='../Divisions/recordsHome.html'">Records Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for locating, detaining, and transporting anomalies to facilities." onclick="window.location.href='../Divisions/containmentHome.html'">Containment Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for designing, constructing, and enacting protocols to contain anomalies." onclick="window.location.href='../Divisions/retainmentHome.html'">Retainment Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for inventing gadgets, items, and esoterica with anamolous properties used by the organization." onclick="window.location.href='../Divisions/creationHome.html'">Creation Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for dismantling and destroying anomalies deemed unfit for rehabilitation or containment." onclick="window.location.href='../Divisions/destructionHome.html'">Destruction Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for disputing internal affairs, as well as dismantling mole operations." onclick="window.location.href='../Divisions/internalHome.html'">Internal Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for disputing external affairs with other organizations." onclick="window.location.href='../Divisions/externalHome.html'">External Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for disputing ethical dillemas and disputes, works in tandem with all other divisions." onclick="window.location.href='../Divisions/ethicsHome.html'">Ethics Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for allocating, managing, and distributing funds and resources among other divisions." onclick="window.location.href='../Divisions/logisticsHome.html'">Logistics Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for suppressing, distorting, or redirecting public knowledge about anomalies or the organization." onclick="window.location.href='../Divisions/obfuscationHome.html'">Obfuscation Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for designing, engineering, and constructing organization facilities and operation bases" onclick="window.location.href='../Divisions/constructionHome.html'">Construction Division</button>
+                        <button class="division-btn" data-tooltip="Reserved for recruiting personnel and overseeing other divisions." onclick="window.location.href='../Divisions/administrativeHome.html'">Administrative Division</button>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="dashboard-area" style="overflow: hidden; display: flex; flex-direction: column;">
+                <div class="document-wrapper" style="height: 100%; overflow-y: auto;">
+                    <!-- Main Content -->
+                    <section class="doc-main-content">
+                        <div class="doc-header">Document #0001: The Rejected Spawn</div>
+        
+                        <div class="doc-grid-top">
+                            <div class="doc-box status-box">
+                                <div class="box-title">Status</div>
+                                <!-- New Status Layout -->
+                                <div class="status-table">
+                                    <div class="status-row">
+                                        <div class="status-label">Class</div>
+                                        <div class="status-value">Euclid / Place</div>
+                                    </div>
+                                    <div class="status-row">
+                                        <div class="status-label">State</div>
+                                        <div class="status-value">Active</div>
+                                    </div>
+                                    <div class="status-row">
+                                        <div class="status-label">Location</div>
+                                        <div class="status-value">Sanctum 16</div>
+                                    </div>
+                                </div>
+                                <div class="box-content">
+                                    <p>The anomaly is currently stable, though fluctuations in local reality levels have been observed.</p>
+                                </div>
+                            </div>
+                            <div class="doc-box image-box" style="flex-direction: column;">
+                                <!-- Image linking to the images folder as requested -->
+                                <img src="images/rejectSpawn.png" alt="The Rejected Spawn" onerror="this.style.display='none'; this.parentElement.innerText='[IMAGE MISSING]'">
+                                <div class="image-caption" style="margin-top: 10px; font-size: 0.9em; color: #aaa; text-align: center; width: 100%;">Figure 1.1: External View of Anomaly</div>
+                            </div>
+                        </div>
+        
+                        <div class="doc-box description-box">
+                            <div class="box-title">Description</div>
+                            <div class="box-content">
+                                <p>The Rejected Spawn is a localized spatial anomaly manifesting as a distorted residential structure...</p>
+                                <p>[This is a placeholder description based on the title. The user can edit this content.]</p>
+                            </div>
+                        </div>
+        
+                        <div class="doc-box containment-box">
+                            <div class="box-title">Containment Protocol</div>
+                            <div class="box-content">
+                                <p>Access is restricted to Level 3 personnel. Perimeter must be monitored at all times...</p>
+                                <!-- Buffer space included by margin-top on the button -->
+                                <button class="back-btn" onclick="window.location.href='../Divisions/recordsHome.html'" style="margin-top: 40px;">Return to Records</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../script.js"></script>
+    <div id="cursor-tooltip"></div>
+</body>
+</html>
