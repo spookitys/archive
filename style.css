@@ -1,5 +1,5 @@
 :root {
-    --header-height: 200px; /* Adjust as needed */
+    --header-height: 200px;
     --stripe-offset: 0px;
 }
 
@@ -27,7 +27,7 @@ body, html {
     background-color: #111;
 }
 
-/* --- Header Styling --- */
+
 .site-header {
     position: relative;
     height: var(--header-height);
@@ -39,7 +39,7 @@ body, html {
     background-color: #fff;
 }
 
-/* Interactive Stripes Background */
+
 .header-bg-stripes {
     position: absolute;
     top: 0;
@@ -56,11 +56,11 @@ body, html {
     background-size: 56.57px 56.57px;
     background-position: var(--stripe-offset) 0;
     will-change: background-position;
-    /* Removed transition for smooth JS control */
+   
     z-index: 1;
 }
 
-/* Logo Background */
+
 .header-logo-bg {
     position: absolute;
     top: 50%;
@@ -72,7 +72,7 @@ body, html {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    opacity: 0.25; /* Transparent and in background */
+    opacity: 0.25;
     z-index: 2;
     pointer-events: none;
     animation: fadeInLogo 2s ease-in-out forwards;
@@ -83,12 +83,12 @@ body, html {
     100% { opacity: 0.25; transform: translate(-50%, -50%);}
 }
 
-/* Text Content */
+
 .header-content {
     position: relative;
     z-index: 5;
     text-align: center;
-    transform: translateY(-250%); /* Start above */
+    transform: translateY(-250%);
     animation: slideDown 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
@@ -117,7 +117,7 @@ body, html {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Gradient Overlay: Transparent top -> Solid Black bottom */
+
 .header-gradient-overlay {
     position: absolute;
     top: 0;
@@ -129,13 +129,13 @@ body, html {
     pointer-events: none;
 }
 
-/* Gradient Border: Left to Right, Black to Grey Cycle */
+
 .header-border {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 5px; /* Border thickness */
+    height: 5px;
     background: linear-gradient(90deg, black, rgb(27, 28, 29), black);
     background-size: 200% 100%;
     animation: borderCycle 3s linear infinite;
@@ -147,7 +147,7 @@ body, html {
     100% { background-position: -100% 0; }
 }
 
-/* --- Main Site Background --- */
+
 main {
     position: relative;
     min-height: calc(100vh - var(--header-height));
@@ -160,7 +160,7 @@ main {
     box-sizing: border-box;
 }
 
-/* Main Site Background - Checker Pattern */
+
 main::before {
     content: '';
     position: absolute;
@@ -169,13 +169,13 @@ main::before {
     width: 100%;
     height: 100%;
     
-    /* X Pattern ("Stitches") */
+   
     background-color: #000000;
     background-image: 
         linear-gradient(45deg, transparent 48%, #141414 48%, #141414 52%, transparent 52%),
         linear-gradient(-45deg, transparent 48%, #141414 48%, #141414 52%, transparent 52%);
     
-    /* Size of the X pattern */
+   
     background-size: 20px 20px;
     
     z-index: 0;
@@ -186,7 +186,7 @@ main::before {
     100% { background-position: -100px 100px, -50px 150px; }
 }
 
-/* Content Container */
+
 .content-container {
     position: relative;
     z-index: 2;
@@ -200,7 +200,7 @@ main::before {
     color: white;
 }
 
-/* Warning Box */
+
 .warning-box {
     background: rgba(0, 0, 0, 0.85);
     border: 1px solid #333;
@@ -212,16 +212,14 @@ main::before {
                 height 0.5s cubic-bezier(0.4, 0.0, 0.2, 1), 
                 padding 0.5s ease;
     width: auto;
-    overflow: hidden; /* Important for smooth resizing visuals */
+    overflow: hidden;
     text-align: left;
 }
 
-/* Animation States */
+
 .warning-box {
-    /* Merged with main definition to avoid overriding issues if possible, 
-       but keeping this block if it has unique properties. 
-       Actually, let's just make sure the transition matches. */
-    min-height: 100px; /* Prevent collapse during transitions if needed */
+   
+    min-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -252,7 +250,7 @@ main::before {
     100% { opacity: 1; text-shadow: 0 0 10px rgba(255, 0, 0, 0.5); color: #ffffff; }
 }
 
-/* Verify Button */
+
 .verify-btn {
     background: transparent;
     color: white;
@@ -275,10 +273,10 @@ main::before {
 }
 
 
-/* Animation States */
+
 .warning-box {
     transition: all 0.5s ease-in-out;
-    min-height: 100px; /* Prevent collapse during transitions if needed */
+    min-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -286,7 +284,7 @@ main::before {
 }
 
 .warning-green {
-    color: #4CAF50; /* Green */
+    color: #4CAF50;
     font-family: 'HelveticaNeueMedium', sans-serif;
     font-weight: 500;
     font-size: 1.2rem;
@@ -318,18 +316,18 @@ main::before {
 }
 
 
-/* Reset box sizing for better height calculation */
+
 .warning-box, .warning-box * {
     box-sizing: border-box;
 }
 
-/* Ensure Width Transition Works */
+
 .warning-box {
-    max-width: 800px; /* Constraint */
-    /* width will be controlled by JS for animation */
+    max-width: 800px;
+   
 }
 
-/* --- Home Page Layout --- */
+
 .home-grid {
     display: flex;
     flex-direction: row;
@@ -338,10 +336,10 @@ main::before {
     max-width: 1200px;
     min-height: 80vh;
     height: auto;
-    z-index: 2; /* Sit above background */
+    z-index: 2;
 }
 
-/* Sidebar */
+
 .sidebar-box {
     width: 250px;
     background: linear-gradient(to bottom, #000000, #333333);
@@ -396,12 +394,12 @@ main::before {
     margin-top: 0;
     flex-grow: 1;
     overflow-y: visible;
-    /* Custom scrollbar for webkit */
+   
     scrollbar-width: thin;
     scrollbar-color: #888 #000;
 }
 
-/* Scrollbar styling for sidebar when it has overflow */
+
 .sidebar-box::-webkit-scrollbar {
     width: 6px;
 }
@@ -413,7 +411,7 @@ main::before {
     border-radius: 3px;
 }
 
-/* Scrollbar styling */
+
 .divisions-container::-webkit-scrollbar {
     width: 6px;
 }
@@ -462,7 +460,7 @@ main::before {
     text-decoration: none;
 }
 
-/* Hover Indicator */
+
 .division-btn::before {
     content: '> ';
     display: inline-block;
@@ -478,7 +476,7 @@ main::before {
     margin-right: 5px;
 }
 
-/* Tooltip (JS Controlled) */
+
 #cursor-tooltip {
     position: fixed;
     background: rgba(0, 0, 0, 0.95);
@@ -497,7 +495,7 @@ main::before {
     font-family: 'HelveticaNeueMedium', sans-serif;
 }
 
-/* Dashboard Area */
+
 .dashboard-area {
     flex-grow: 1;
     display: flex;
@@ -536,7 +534,7 @@ main::before {
 
 .guide-card:hover, .action-card:hover { 
     transform: scale(1.005);
-    /* Keep dark background on hover but maybe lighten slightly or add glow */
+   
     background: linear-gradient(to bottom, #111111, #444444);
 }
 
@@ -548,7 +546,7 @@ main::before {
 }
 
 .announcements-card {
-    /* Not a button */
+   
     background: linear-gradient(to bottom, #000000, #333333);
     border: 2px solid white;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
@@ -573,7 +571,7 @@ main::before {
 
 .announcements-content {
     flex-grow: 1;
-    background: transparent; /* Inherits form card gradient */
+    background: transparent;
     padding: 20px;
     color: #fff;
 }
@@ -585,7 +583,7 @@ main::before {
     flex-grow: 1;
 }
 
-/* --- Guide Page Layout --- */
+
 .guide-page-area {
     flex-grow: 1;
     display: flex;
@@ -647,11 +645,11 @@ main::before {
     padding: 30px;
     font-size: 1.5rem;
     line-height: 1.2;
-    position: relative; /* For absolute icon positioning */
-    overflow: hidden; /* Cut off image if needed */
+    position: relative;
+    overflow: hidden;
 }
 
-/* Icon styling */
+
 .action-icon {
     position: absolute;
     bottom: -10%; 
@@ -661,7 +659,7 @@ main::before {
     z-index: 0;
     pointer-events: none;
     
-    /* Default State: 50% opacity at top, 100% transparent at bottom */
+   
     opacity: 0.5;
     -webkit-mask-image: linear-gradient(to top, transparent 0%, black 100%);
     mask-image: linear-gradient(to top, transparent 0%, black 100%);
@@ -670,38 +668,26 @@ main::before {
 }
 
 .action-card:hover .action-icon {
-    /* Hover State: Goes to "current" (previous) transparency values */
-    /* Looking at your request: "when hovered over it should go to the current transparency values" */
-    /* Assuming "current" meant the ~0.9 opacity and the fade we had before */
+   
+   
+   
     opacity: 0.9;
-    /* Maintain the fade mask or adjust if "current" implied a different mask?
-       Previous mask was: linear-gradient(to top, transparent 0%, black 60%);
-       Which is roughly the same fade effect but maybe sharper cutoff. 
-       Let's stick to the fade we just defined or the previous one?
-       "make the ... icons 100% transparent at the bottom, and 50% transparent at the top" -> applied to idle.
-       "hover... go to current".
-       I will assume current means "more visible". */
+   
    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 60%);
    mask-image: linear-gradient(to top, transparent 0%, black 60%);
 }
 
-/* Ensure text stays on top */
+
 .action-text {
     position: relative;
     z-index: 1;
-    /* 3px black stroke */
+   
     -webkit-text-stroke: 3px black;
-    /* Paint order ensures stroke doesn't eat the text if it's thin, though usually needed for SVG. 
-       For standard CSS text-stroke, the stroke is outside/centered? 
-       Actually standard -webkit-text-stroke puts stroke centered on the edge. 
-       If text is white, 3px black stroke might overwhelm it.
-       Let's use text-shadow as a safer visual approximation if text-stroke looks bad, 
-       but user specifically asked for stroke. 
-       I will stick to -webkit-text-stroke. */
+   
     paint-order: stroke fill;
 }
 
-/* Tooltip Styling */
+
 .card-tooltip {
     position: absolute;
     bottom: 0;
@@ -717,7 +703,7 @@ main::before {
     border-top: 1px solid #333;
     z-index: 10;
     
-    /* Animation */
+   
     opacity: 0;
     transform: translateY(100%);
     transition: all 0.3s ease-in-out;
@@ -729,7 +715,7 @@ main::before {
 }
 
 
-/* Announcement Folder Styles: Revert to Tab=Division, Body=Header */
+
 .announcement-folder {
     margin-bottom: 15px;
     cursor: pointer;
@@ -744,7 +730,7 @@ main::before {
 .announcement-folder:hover {
     transform: translateY(-2px);
 }
-/* ... existing hover ... */
+
 
 .folder-tab {
     display: inline-block;
@@ -752,16 +738,16 @@ main::before {
     border-bottom: none;
     border-radius: 8px 8px 0 0;
     padding: 6px 15px; 
-    font-size: 0.75rem; /* Smaller for Division (reverted) */
+    font-size: 0.75rem;
     font-weight: normal; 
     background-color: transparent;
     margin-left: 0;
-    color: #ccc; /* Lighter/Dimmer */
+    color: #ccc;
     position: relative;
     top: 1px; 
     z-index: 2;
     background: black; 
-    text-transform: none; /* Reset uppercase if used */
+    text-transform: none;
 }
 
 .folder-body {
@@ -769,8 +755,8 @@ main::before {
     border-radius: 0 8px 8px 8px; 
     border-top-left-radius: 0; 
     padding: 15px 20px;
-    font-size: 1.1rem; /* Larger for Main Header (reverted) */
-    color: #fff; /* White/Bright */
+    font-size: 1.1rem;
+    color: #fff;
     position: relative;
     z-index: 1;
     background: transparent;
@@ -778,7 +764,7 @@ main::before {
     letter-spacing: normal;
 }
 
-/* Modal Subheader */
+
 #modal-subheader {
     margin-top: -10px;
     margin-bottom: 20px;
@@ -789,14 +775,14 @@ main::before {
     padding-bottom: 10px;
 }
 
-/* Modal Styles */
+
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    /* Blur effect */
+   
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
     z-index: 9999;
@@ -852,7 +838,7 @@ main::before {
 }
 
 
-/* --- Split Bottom Section --- */
+
 .guide-split-bottom {
     display: flex;
     flex-direction: row;
@@ -862,7 +848,7 @@ main::before {
 
 .guide-split-bottom .guide-section {
     flex: 1;
-    width: auto; /* Override width: 100% */
+    width: auto;
 }
 
 .glossary-section-btn {

@@ -165,11 +165,12 @@
         .records-header-row {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             background-color: rgba(255,255,255,0.05); /* Slightly lighter than bg */
             color: #fff;
             padding: 15px 20px;
             font-family: 'HelveticaNeueMedium', sans-serif;
-            font-size: 18px;
+            font-size: 2rem;
             border-bottom: 1px solid #333;
         }
 
@@ -281,6 +282,10 @@
                                     <span class="filter-checkbox" id="chk-released"></span>
                                     Filter Released
                                 </div>
+                                <div class="filter-option" data-filter="subjugated">
+                                    <span class="filter-checkbox" id="chk-subjugated"></span>
+                                    Filter Subjugated
+                                </div>
                                 <div class="filter-divider"></div>
                                 <!-- Category Filters -->
                                 <div class="filter-option" data-filter="person">
@@ -321,6 +326,7 @@
         let currentTab = '1-99'; // Default tab
         let filters = {
             released: false,
+            subjugated: false,
             person: false,
             phenomena: false,
             place: false,
@@ -472,6 +478,11 @@
                 // "change the filter redacted to "Filter Released" and change the logic accordingly"
                 // Assuming "Filter Released" -> Show ONLY Released (non-redacted) items.
                 if (filters.released && record.isRedacted) {
+                    return false;
+                }
+                
+                // Filter Subjugated Logic
+                if (filters.subjugated && !record.isRedacted) {
                     return false;
                 }
                 
