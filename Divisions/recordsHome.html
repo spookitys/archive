@@ -361,7 +361,6 @@
             const registeredDoc = documentRegistry.find(doc => doc.id === i);
 
             if (registeredDoc) {
-                // If found, add the real document
                 allRecords.push({
                     id: registeredDoc.id,
                     title: registeredDoc.title,
@@ -370,8 +369,6 @@
                     link: registeredDoc.link
                 });
             } else {
-                // Otherwise, create a redacted placeholder
-                // "make all documents redacted besides the example one"
                 const type = 'Unknown'; 
                 
                 allRecords.push({
@@ -384,7 +381,6 @@
             }
         }
 
-        // --- DOM Elements ---
         const listElement = document.getElementById('documents-list');
         const paginationContainer = document.getElementById('pagination-tabs');
         const filterBtn = document.getElementById('filter-btn');
@@ -392,7 +388,6 @@
         const filterOptions = document.querySelectorAll('.filter-option');
 
 
-        // --- Initialization ---
         function init() {
             renderPagination();
             renderList();
@@ -402,10 +397,6 @@
         // --- Rendering ---
         function renderPagination() {
             paginationContainer.innerHTML = '';
-            
-            // Define ranges specifically as requested:
-            // "make the tabs logic and display go from 201-300 to 200-299"
-            // Interpreting as: 1-99, 100-199, 200-299, 300-399... 900-999, 1000.
             const ranges = [
                 { start: 1, end: 99 },
                 { start: 100, end: 199 },
@@ -475,8 +466,6 @@
             
             recordsToShow = recordsToShow.filter(record => {
                 // Filter Released Logic:
-                // "change the filter redacted to "Filter Released" and change the logic accordingly"
-                // Assuming "Filter Released" -> Show ONLY Released (non-redacted) items.
                 if (filters.released && record.isRedacted) {
                     return false;
                 }
@@ -488,8 +477,6 @@
                 
                 // Type Filtering
                 if (typeFiltersActive) {
-                     // If type is Unknown (Redacted), filtering by specific type (e.g. Person) should exclude it?
-                     // Usually yes.
                     const typeKey = record.type.toLowerCase();
                     if (!filters[typeKey]) {
                         return false;
