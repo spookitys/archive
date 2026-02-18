@@ -312,3 +312,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function toggleExperiment(header) {
+    const content = header.nextElementSibling;
+    const icon = header.querySelector('.toggle-icon');
+    
+    if (content.style.display === 'none' || content.style.display === '') {
+        content.style.display = 'block';
+        header.classList.add('active');
+        // Change icon to up arrow if desired, or rotation handles it
+    } else {
+        content.style.display = 'none';
+        header.classList.remove('active');
+    }
+}

@@ -867,3 +867,72 @@ main::before {
     color: black;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
 }
+
+
+/* Experiment Log Styles */
+.experiment-log-box {
+    cursor: default;
+}
+
+.experiment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.experiment-title {
+    font-family: 'HelveticaNeueMedium', sans-serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.toggle-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.experiment-header.active .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.experiment-content {
+    margin-top: 15px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.experiment-description {
+    font-family: 'HelveticaNeueMedium', sans-serif;
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.dialogue-box {
+    border: 2px solid white;
+    padding: 15px;
+    font-family: 'HelveticaNeueMedium', sans-serif;
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialogue-line {
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.dialogue-line:last-child {
+    margin-bottom: 0;
+}
+
+.speaker {
+    font-weight: bold;
+    color: #ddd;
+    margin-right: 5px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
