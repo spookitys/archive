@@ -286,6 +286,10 @@
                                     <span class="filter-checkbox" id="chk-subjugated"></span>
                                     Filter Subjugated
                                 </div>
+                                <div class="filter-option" data-filter="anomalous">
+                                    <span class="filter-checkbox" id="chk-anomalous"></span>
+                                    Filter Anomalous
+                                </div>
                                 <div class="filter-divider"></div>
                                 <!-- Category Filters -->
                                 <div class="filter-option" data-filter="person">
@@ -327,6 +331,7 @@
         let filters = {
             released: false,
             subjugated: false,
+            anomalous: false,
             person: false,
             phenomena: false,
             place: false,
@@ -340,20 +345,33 @@
         // Title: The name of the document
         // Type: 'Person', 'Phenomena', 'Place', 'Entity', 'Object' (Must match filters)
         // Link: Relative path to the HTML file
+        // Subjugated: Boolean, whether the anomaly is under control
+        // Anomalous: Boolean, whether the item exhibits active anomalies
         const documentRegistry = [
             {
                 id: 1,
                 title: "The Rejected Spawn",
                 type: "Place",
-                link: "../documents/rejectSpawn.html"
+                link: "../documents/rejectSpawn.html",
+                subjugated: false,
+                anomalous: true
             },
             {
                 id: 2,
                 title: "The Void Star",
                 type: "Place",
-                link: "../documents/voidStar.html"
-            }
-            // { id: 2, title: "Next Doc", type: "Entity", link: "../documents/nextDoc.html" }
+                link: "../documents/voidStar.html",
+                subjugated: false,
+                anomalous: true
+            },
+            {
+                id: 3,
+                title: "Dignity",
+                type: "Person",
+                link: "../documents/dignity.html",
+                subjugated: false,
+                anomalous: false
+            },
         ];
 
         // --- Mock Data Generation ---
@@ -372,7 +390,9 @@
                     title: registeredDoc.title,
                     isRedacted: false,
                     type: registeredDoc.type,
-                    link: registeredDoc.link
+                    link: registeredDoc.link,
+                    subjugated: registeredDoc.subjugated || false,
+                    anomalous: registeredDoc.anomalous || false
                 });
             } else {
                 const type = 'Unknown'; 
@@ -382,7 +402,9 @@
                     title: '[REDACTED]',
                     isRedacted: true,
                     type: type,
-                    link: '../miscPages/redactedPage.html'
+                    link: '../miscPages/redactedPage.html',
+                    subjugated: false,
+                    anomalous: false
                 });
             }
         }
@@ -471,13 +493,18 @@
             const typeFiltersActive = filters.person || filters.phenomena || filters.place || filters.entity || filters.object;
             
             recordsToShow = recordsToShow.filter(record => {
-                // Filter Released Logic:
+                // Filter Released (Show only released/non-redacted)
                 if (filters.released && record.isRedacted) {
                     return false;
                 }
                 
-                // Filter Subjugated Logic
-                if (filters.subjugated && !record.isRedacted) {
+                // Filter Subjugated (Show only subjugated)
+                if (filters.subjugated && !record.subjugated) {
+                    return false;
+                }
+
+                // Filter Anomalous (Show only anomalous)
+                if (filters.anomalous && !record.anomalous) {
                     return false;
                 }
                 
